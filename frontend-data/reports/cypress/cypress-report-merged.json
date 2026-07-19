@@ -1,0 +1,383 @@
+{
+  "stats": {
+    "suites": 6,
+    "tests": 7,
+    "passes": 7,
+    "pending": 0,
+    "failures": 0,
+    "skipped": 0,
+    "duration": 52767,
+    "testsRegistered": 7,
+    "start": "2026-07-19T15:30:36.958Z",
+    "end": "2026-07-19T15:31:36.963Z"
+  },
+  "results": [
+    {
+      "uuid": "d0220177-558f-4c0d-8406-1d0f13857dbe",
+      "title": "",
+      "fullFile": "cypress/e2e/CP-01-pasarela-pago.cy.js",
+      "file": "cypress/e2e/CP-01-pasarela-pago.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "59cce463-b5c4-4326-99a8-6faad397097f",
+          "title": "CP-01: Validar pasarela de pago VISA vs Amex/Mastercard",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Rechaza tarjeta no-VISA y muestra error de validación",
+              "fullTitle": "CP-01: Validar pasarela de pago VISA vs Amex/Mastercard Rechaza tarjeta no-VISA y muestra error de validación",
+              "timedOut": null,
+              "duration": 6070,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs('investor01', 'Password123');\ncy.contains('.item', 'Compra de Acciones').click();\ncy.url().should('include', '/buy');\ncy.get('input[formControlName=\"ticker\"]').type('MSFT');\ncy.get('input[formControlName=\"amount\"]').type('1');\ncy.get('input[formControlName=\"cardNumber\"]').scrollIntoView().parents('mat-form-field').click().type('5111111111111111');\ncy.get('input[formControlName=\"expirationDate\"]').scrollIntoView().parents('mat-form-field').click().type('12/28');\ncy.get('input[formControlName=\"cvc\"]').scrollIntoView().parents('mat-form-field').click().type('123');\ncy.contains('button', 'Continuar').click();\ncy.contains('Tarjeta VISA inválida').should('be.visible');",
+              "err": {},
+              "uuid": "c804e184-532b-47ec-be8f-32fc5ca61193",
+              "parentUUID": "59cce463-b5c4-4326-99a8-6faad397097f",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c804e184-532b-47ec-be8f-32fc5ca61193"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6070,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "a3c6541a-0e24-4bce-97e0-09023c87ee8f",
+      "title": "",
+      "fullFile": "cypress/e2e/CP-03-bloqueo-unverified.cy.js",
+      "file": "cypress/e2e/CP-03-bloqueo-unverified.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "426a36b5-3a8e-489d-a0bf-96dd2c91cf1c",
+          "title": "CP-03: Bloqueo por rol Unverified",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "No permite operar a un usuario no verificado en /buy",
+              "fullTitle": "CP-03: Bloqueo por rol Unverified No permite operar a un usuario no verificado en /buy",
+              "timedOut": null,
+              "duration": 3805,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs('unverified01', 'Password123');\ncy.contains('.item', 'Compra de Acciones').click();\ncy.url().should('include', '/buy');\ncy.contains('El usuario no ha sido verificado, por favor revise su correo electrónico').should('be.visible');",
+              "err": {},
+              "uuid": "c1977a66-4198-4129-b5d1-cefde6856a69",
+              "parentUUID": "426a36b5-3a8e-489d-a0bf-96dd2c91cf1c",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "No permite operar a un usuario no verificado en /sell",
+              "fullTitle": "CP-03: Bloqueo por rol Unverified No permite operar a un usuario no verificado en /sell",
+              "timedOut": null,
+              "duration": 3351,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs('unverified01', 'Password123');\ncy.contains('.item', 'Venta de Acciones').click();\ncy.url().should('include', '/sell');\ncy.contains('El usuario no ha sido verificado, por favor revise su correo electrónico').should('be.visible');",
+              "err": {},
+              "uuid": "f230c94b-35f5-480c-bacf-3f618cadbe98",
+              "parentUUID": "426a36b5-3a8e-489d-a0bf-96dd2c91cf1c",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c1977a66-4198-4129-b5d1-cefde6856a69",
+            "f230c94b-35f5-480c-bacf-3f618cadbe98"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 7156,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "1553f9ea-d690-4243-8f2f-a671dd38cb29",
+      "title": "",
+      "fullFile": "cypress/e2e/CP-17-cvc-invalid.cy.js",
+      "file": "cypress/e2e/CP-17-cvc-invalid.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "8eeb52e5-98c2-4f68-8fbd-5ac31b119fb7",
+          "title": "CP-17: Rechazo exacto por CVC incorrecto",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Muestra validación de CVC y no deja continuar",
+              "fullTitle": "CP-17: Rechazo exacto por CVC incorrecto Muestra validación de CVC y no deja continuar",
+              "timedOut": null,
+              "duration": 5404,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs('investor01', 'Password123');\ncy.contains('.item', 'Compra de Acciones').click();\ncy.url().should('include', '/buy');\ncy.get('input[formControlName=\"ticker\"]').type('MSFT');\ncy.get('input[formControlName=\"amount\"]').type('1');\ncy.get('input[formControlName=\"cardNumber\"]').scrollIntoView().parents('mat-form-field').click().type('4111111111111111');\ncy.get('input[formControlName=\"expirationDate\"]').scrollIntoView().parents('mat-form-field').click().type('12/28');\ncy.get('input[formControlName=\"cvc\"]').type('12');\ncy.get('body').click(0, 0);\ncy.contains('El CVC debe contener 3 dígitos', {\n  timeout: 10000\n}).should('be.visible');\ncy.contains('button', 'Continuar').should('be.disabled');",
+              "err": {},
+              "uuid": "c2b0b76b-6972-499e-ac0e-162bb7435cdd",
+              "parentUUID": "8eeb52e5-98c2-4f68-8fbd-5ac31b119fb7",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "c2b0b76b-6972-499e-ac0e-162bb7435cdd"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5404,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "4c160501-2ac5-4ea8-ae95-7bf1052a2091",
+      "title": "",
+      "fullFile": "cypress/e2e/CP-20-Transferencia-E2E.cy.js",
+      "file": "cypress/e2e/CP-20-Transferencia-E2E.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1584ad93-1b56-42d6-8444-0a7f132ba38a",
+          "title": "CP-20: Escenario de Aceptación - Transferencia de Acciones",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe permitir a investor01 transferir 5 MSFT a usuario_admin",
+              "fullTitle": "CP-20: Escenario de Aceptación - Transferencia de Acciones Debe permitir a investor01 transferir 5 MSFT a usuario_admin",
+              "timedOut": null,
+              "duration": 12805,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs('investor01', 'Password123');\n// Precondición: investor01 ya tiene MSFT\ncy.contains('.item', 'Consulta de Acciones').click();\ncy.url().should('include', '/summary');\ncy.get('mat-tab-group [role=\"tab\"]').contains('Acciones Adquiridas').click();\ncy.contains('MSFT').should('exist');\n// Ir a transferencia\ncy.contains('.item', 'Transferencia de Acciones').click();\ncy.url().should('include', '/transfer');\ncy.contains('Transferencia de Acciones').should('be.visible');\ncy.get('input[formControlName=\"ticker\"]').scrollIntoView().click().type('MSFT');\ncy.get('input[formControlName=\"amount\"]').scrollIntoView().click().type('5');\ncy.get('input[formControlName=\"receptor\"]').scrollIntoView().parents('mat-form-field').click();\ncy.get('input[formControlName=\"receptor\"]').type('investor02').blur();\ncy.get('input[formControlName=\"receptor\"]').should('have.value', 'investor02');\ncy.intercept('POST', 'http://localhost:8080/api/transaction/transfer').as('transfer');\ncy.contains('button', 'Continuar').should('not.be.disabled').click();\ncy.contains('button', 'Transferir').should('be.visible').click();\ncy.wait('@transfer').its('response.statusCode').should('eq', 200);\ncy.contains('¡Su operación ha sido exitosa!').should('be.visible');\ncy.contains('.item', 'Consulta de Acciones').click();\ncy.url().should('include', '/summary');\ncy.get('mat-tab-group [role=\"tab\"]').contains('Transacciones').click();\ncy.contains('Transferencia').should('be.visible');\ncy.contains('MSFT').should('exist');\ncy.contains('investor02').should('exist');",
+              "err": {},
+              "uuid": "7897f8b5-3837-4da5-952c-e38dcedc2612",
+              "parentUUID": "1584ad93-1b56-42d6-8444-0a7f132ba38a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "7897f8b5-3837-4da5-952c-e38dcedc2612"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 12805,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "465b7592-c87b-48e4-86ff-707084d8436a",
+      "title": "",
+      "fullFile": "cypress/e2e/CP-22-E2E.cy.js",
+      "file": "cypress/e2e/CP-22-E2E.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "121a16c1-3188-48d7-b1a4-719a4a5ba20a",
+          "title": "CP-22: Escenario End-to-End Bursátil",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Debe iniciar sesión, comprar MSFT, vender 5 y consultar historial",
+              "fullTitle": "CP-22: Escenario End-to-End Bursátil Debe iniciar sesión, comprar MSFT, vender 5 y consultar historial",
+              "timedOut": null,
+              "duration": 14784,
+              "state": "passed",
+              "speed": "slow",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "// 1. LOGIN\ncy.visit('http://localhost:4200/login');\ncy.get('input[formControlName=\"username\"]').type('investor01');\ncy.get('input[formControlName=\"password\"]').type('Password123');\ncy.intercept('POST', 'http://localhost:8080/api/user/login').as('login');\ncy.contains('button', 'Ingresar').click();\ncy.wait('@login').its('response.statusCode').should('eq', 200);\ncy.url().should('include', '/summary');\ncy.contains('Consulta de Acciones').should('be.visible');\ncy.contains('Bienvenido,').should('be.visible');\n// 2. COMPRA DE ACCIONES\ncy.contains('.item', 'Compra de Acciones').click();\ncy.url().should('include', '/buy');\ncy.contains('Compra de Acciones').should('be.visible');\ncy.get('input[formControlName=\"ticker\"]').type('MSFT');\ncy.get('input[formControlName=\"amount\"]').type('10');\ncy.get('input[formControlName=\"cardNumber\"]').scrollIntoView().parents('mat-form-field').click();\ncy.get('input[formControlName=\"cardNumber\"]').type('4111111111111111');\ncy.get('input[formControlName=\"expirationDate\"]').scrollIntoView().parents('mat-form-field').click();\ncy.get('input[formControlName=\"expirationDate\"]').type('12/28');\ncy.get('input[formControlName=\"cvc\"]').scrollIntoView().parents('mat-form-field').click();\ncy.get('input[formControlName=\"cvc\"]').type('123');\ncy.contains('button', 'Continuar').click();\ncy.contains('button', 'Comprar').should('be.visible').click();\ncy.contains('¡Su operación ha sido exitosa!').should('be.visible');\n// 3. VENTA DE ACCIONES\ncy.contains('.item', 'Venta de Acciones').click();\ncy.url().should('include', '/sell');\ncy.contains('Venta de Acciones').should('be.visible');\ncy.get('input[formControlName=\"ticker\"]').type('MSFT');\ncy.get('input[formControlName=\"amount\"]').type('5');\ncy.get('input[formControlName=\"email\"]').scrollIntoView().parents('mat-form-field').click();\ncy.get('input[formControlName=\"email\"]').type('admin@example.com');\ncy.contains('button', 'Continuar').click();\ncy.contains('button', 'Vender').should('be.visible').click();\ncy.contains('¡Su operación ha sido exitosa!').should('be.visible');\n// 4. CONSULTAR HISTORIAL\ncy.contains('.item', 'Consulta de Acciones').click();\ncy.url().should('include', '/summary');\ncy.contains('Consulta de Acciones').should('be.visible');\ncy.get('mat-tab-group [role=\"tab\"]').eq(2).click();\ncy.contains('Ticker').should('be.visible');\ncy.contains('MSFT').should('exist');",
+              "err": {},
+              "uuid": "a4a334b6-a056-413b-a5a5-07096fa5ac50",
+              "parentUUID": "121a16c1-3188-48d7-b1a4-719a4a5ba20a",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "a4a334b6-a056-413b-a5a5-07096fa5ac50"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 14784,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "1543fb07-9e64-4f9b-8632-296e1bc00242",
+      "title": "",
+      "fullFile": "cypress/e2e/CP-23-sobregiro.cy.js",
+      "file": "cypress/e2e/CP-23-sobregiro.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "c72d661f-864b-4d0f-b703-5c0e85f8d93e",
+          "title": "CP-23: Sobregiro bursátil",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Muestra error al intentar vender más acciones de las que posee",
+              "fullTitle": "CP-23: Sobregiro bursátil Muestra error al intentar vender más acciones de las que posee",
+              "timedOut": null,
+              "duration": 6205,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.loginAs('investor01', 'Password123');\ncy.contains('.item', 'Venta de Acciones').click();\ncy.url().should('include', '/sell');\ncy.get('input[formControlName=\"ticker\"]').type('MSFT');\ncy.get('input[formControlName=\"amount\"]').type('500');\ncy.get('input[formControlName=\"email\"]').scrollIntoView().parents('mat-form-field').click().type('investor01@example.com');\ncy.contains('button', 'Continuar').should('be.disabled');\ncy.contains('No posee suficientes acciones').should('be.visible');",
+              "err": {},
+              "uuid": "63f121d0-7cb4-43f9-8046-0b2590b01e20",
+              "parentUUID": "c72d661f-864b-4d0f-b703-5c0e85f8d93e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "63f121d0-7cb4-43f9-8046-0b2590b01e20"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6205,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ]
+}

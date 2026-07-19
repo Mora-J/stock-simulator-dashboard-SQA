@@ -1,0 +1,59 @@
+{
+  "reportPath": "/home/runner/work/stock-simulator-angular-SQA/stock-simulator-angular-SQA/reports/cypress-report-merged.json",
+  "reportFound": true,
+  "reportType": "cypress-json",
+  "metrics": {
+    "scheduledE2eCases": {
+      "value": 6,
+      "description": "Cantidad total de flujos E2E programados para el pipeline."
+    },
+    "totalSpecsExecuted": {
+      "value": 7,
+      "description": "Número de archivos de especificaciones de Cypress ejecutados."
+    },
+    "totalTestsExecuted": {
+      "value": 14,
+      "description": "Total de tests ejecutados durante la corrida E2E."
+    },
+    "totalPassed": {
+      "value": 14,
+      "description": "Total de tests E2E que pasaron satisfactoriamente."
+    },
+    "totalFailed": {
+      "value": 0,
+      "description": "Total de tests E2E que fallaron durante la ejecución."
+    },
+    "totalPending": {
+      "value": 0,
+      "description": "Total de tests marcados como pendientes."
+    },
+    "totalSkipped": {
+      "value": 0,
+      "description": "Total de tests saltados."
+    },
+    "e2ePassRatePercent": {
+      "value": 116.67,
+      "description": "Porcentaje de casos de prueba E2E exitosos respecto al total programado."
+    },
+    "e2eExecutionPassRatePercent": {
+      "value": 100,
+      "description": "Porcentaje de pruebas E2E exitosas respecto al total de pruebas ejecutadas."
+    },
+    "blackBoxFailureDensity": {
+      "value": 0,
+      "description": "Densidad de fallas de caja negra por cantidad de specs ejecutados."
+    },
+    "failedSpecs": {
+      "value": 0,
+      "description": "Cantidad de archivos de especificación que presentaron al menos una falla."
+    },
+    "successSpecs": {
+      "value": 7,
+      "description": "Cantidad de archivos de especificación E2E sin fallas."
+    },
+    "pipelineLeadTimeSeconds": {
+      "value": 88,
+      "description": "Tiempo total del pipeline desde el inicio hasta el cálculo de métricas."
+    }
+  }
+}
