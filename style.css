@@ -58,7 +58,7 @@ nav button.active {
 
 .view.active {
     display: block;
-    padding: 0 3rem; /* Aumentado el margen horizontal para más espacio */
+    padding: 0 9rem; /* Aumentado el margen horizontal para más espacio */
 }
 
 #metrics-grid {
