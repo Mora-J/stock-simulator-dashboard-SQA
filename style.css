@@ -58,7 +58,7 @@ nav button.active {
 
 .view.active {
     display: block;
-    padding: 0 2rem; /* Añade margen horizontal a las vistas activas */
+    padding: 0 3rem; /* Aumentado el margen horizontal para más espacio */
 }
 
 #metrics-grid {
