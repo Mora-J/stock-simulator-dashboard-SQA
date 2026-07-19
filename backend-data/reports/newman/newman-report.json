@@ -1,0 +1,2501 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+      "exporter_id": "50714882",
+      "collection_link": "https://go.postman.co/collection/50714882-f8bf8d1b-952a-453d-add7-c358b1a8397c?source=collection_link"
+    },
+    "item": [
+      {
+        "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+        "name": "CP-11 Consultar Mercado",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "stock",
+              "all"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET",
+          "auth": {
+            "type": "noauth",
+            "noauth": []
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"Status code is 200\", function () {\r",
+                "    pm.response.to.have.status(200);\r",
+                "});\r",
+                "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
+                "    var jsonData = pm.response.json();\r",
+                "    pm.expect(jsonData).to.have.property(\"code\");\r",
+                "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
+                "});"
+              ],
+              "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+            }
+          }
+        ]
+      },
+      {
+        "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+        "name": "CP-36 Transferencia sin Token",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "transaction",
+              "transfer"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "96a887b7-97da-49af-a802-338f6aba4836",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"El acceso debe ser denegado (403 o 401)\", function () {\r",
+                "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                "});"
+              ],
+              "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+            }
+          }
+        ]
+      },
+      {
+        "id": "b997993a-e958-4d79-801c-72495f068ea2",
+        "name": "CP-08 Inyección SQL en Búsqueda",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "stock",
+              "search"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [
+              {
+                "key": "query",
+                "value": "MSFT'; DROP TABLE users;"
+              }
+            ],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"El sistema no debe fallar con error interno (No 500)\", function () {\r",
+                "    // Si escapa bien los caracteres, devolverá 200 (lista vacía) o 400 (Bad Request).\r",
+                "    // Si devuelve 500, significa que la base de datos colapsó por la inyección.\r",
+                "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                "});\r",
+                "pm.test(\"El tiempo de respuesta debe ser normal (menor a 500ms)\", function () {\r",
+                "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                "});"
+              ],
+              "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+            }
+          }
+        ]
+      },
+      {
+        "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+        "name": "CP-50 Transferencia Cíclica (A sí mismo)",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "transaction",
+              "transfer"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"issuerUsername\": \"usuario_admin\",\r\n  \"receptorUsername\": \"usuario_admin\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corporation\",\r\n  \"quantity\": 10,\r\n  \"amount\": 500.00\r\n}"
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"La transacción cíclica es rechazada por el backend\", function () {\r",
+                "    pm.expect(pm.response.code).to.not.equal(200);\r",
+                "});\r",
+                "\r",
+                "pm.test(\"El mensaje de error debe ser pertinente\", function () {\r",
+                "    var jsonData = pm.response.json();\r",
+                "    // Verifica que el backend arroje un mensaje de error o rechazo\r",
+                "    pm.expect(jsonData).to.not.be.empty;\r",
+                "});"
+              ],
+              "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+            }
+          }
+        ]
+      },
+      {
+        "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+        "name": "CP-49 Doble Clic (Condición de Carrera)",
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "transaction",
+              "buy"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"username\": \"investor01\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corp\",\r\n  \"quantity\": 10,\r\n  \"amount\": 3500.0\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "cf101856-4307-4042-980f-9bacab95afee",
+              "type": "text/javascript",
+              "packages": {},
+              "exec": [
+                "pm.test(\"El endpoint responde y aísla la petición (No colapsa la BD)\", function () {\r",
+                "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                "});"
+              ],
+              "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+      "name": "Stock Simulator - Integración",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "id": "8ba68abb-556b-44d0-be75-65fc641bb91d",
+    "values": []
+  },
+  "globals": {
+    "id": "c8a2fb7c-44f7-4a8c-9c77-1b672029aa46",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequests": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 8,
+        "pending": 0,
+        "failed": 2
+      },
+      "testScripts": {
+        "total": 5,
+        "pending": 0,
+        "failed": 0
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 213.4,
+      "responseMin": 7,
+      "responseMax": 928,
+      "responseSd": 358.2259622082128,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1784474527462,
+      "completed": 1784474528628
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 5,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "6a261ceb-9e31-415b-8726-563261fa5900",
+          "httpRequestId": "04634593-bb50-41b5-b6ab-69ad4d990dce"
+        },
+        "item": {
+          "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+          "name": "CP-11 Consultar Mercado",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "stock",
+                "all"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "noauth",
+              "noauth": []
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"code\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
+                  "});"
+                ],
+                "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "stock",
+              "all"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "f71737fb-12c8-4eb6-bb50-d22705a53bec",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8080",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET",
+          "auth": {
+            "type": "noauth",
+            "noauth": []
+          }
+        },
+        "response": {
+          "id": "cb128a4e-57d3-413f-ae09-fd8386b07de4",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Method"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Headers"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 19 Jul 2026 15:22:07 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              48,
+              44,
+              34,
+              115,
+              116,
+              111,
+              99,
+              107,
+              68,
+              84,
+              79,
+              76,
+              105,
+              115,
+              116,
+              34,
+              58,
+              91,
+              123,
+              34,
+              116,
+              105,
+              99,
+              107,
+              101,
+              114,
+              34,
+              58,
+              34,
+              77,
+              83,
+              70,
+              84,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              77,
+              105,
+              99,
+              114,
+              111,
+              115,
+              111,
+              102,
+              116,
+              34,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              77,
+              105,
+              99,
+              114,
+              111,
+              115,
+              111,
+              102,
+              116,
+              32,
+              67,
+              111,
+              114,
+              112,
+              111,
+              114,
+              97,
+              116,
+              105,
+              111,
+              110,
+              32,
+              115,
+              116,
+              111,
+              99,
+              107,
+              34,
+              125,
+              44,
+              123,
+              34,
+              116,
+              105,
+              99,
+              107,
+              101,
+              114,
+              34,
+              58,
+              34,
+              65,
+              65,
+              80,
+              76,
+              34,
+              44,
+              34,
+              110,
+              97,
+              109,
+              101,
+              34,
+              58,
+              34,
+              65,
+              112,
+              112,
+              108,
+              101,
+              34,
+              44,
+              34,
+              100,
+              101,
+              115,
+              99,
+              114,
+              105,
+              112,
+              116,
+              105,
+              111,
+              110,
+              34,
+              58,
+              34,
+              65,
+              112,
+              112,
+              108,
+              101,
+              32,
+              73,
+              110,
+              99,
+              32,
+              115,
+              116,
+              111,
+              99,
+              107,
+              34,
+              125,
+              93,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 26,
+          "responseSize": 173
+        },
+        "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+        "assertions": [
+          {
+            "assertion": "Status code is 200",
+            "skipped": false
+          },
+          {
+            "assertion": "La respuesta usa la estructura StockListResponseDTO (Es un json valido)",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "1ba7eabe-9b37-4dfb-bf27-34605dcf16f4",
+          "length": 5,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "d9f69a04-9032-4558-a930-093b4bea7a15"
+        },
+        "item": {
+          "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+          "name": "CP-36 Transferencia sin Token",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "transaction",
+                "transfer"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"El acceso debe ser denegado (403 o 401)\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                  "});"
+                ],
+                "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "transaction",
+              "transfer"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "4e70e3e1-0646-46c0-afd3-f551fb884e1e",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8080",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "0",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "27ff3629-74b8-413e-a3bc-b593834e80bb",
+          "status": "Bad Request",
+          "code": 400,
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Method"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Headers"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 19 Jul 2026 15:22:07 GMT"
+            },
+            {
+              "key": "Connection",
+              "value": "close"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              116,
+              105,
+              109,
+              101,
+              115,
+              116,
+              97,
+              109,
+              112,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              55,
+              45,
+              49,
+              57,
+              84,
+              49,
+              53,
+              58,
+              50,
+              50,
+              58,
+              48,
+              55,
+              46,
+              53,
+              52,
+              48,
+              43,
+              48,
+              48,
+              58,
+              48,
+              48,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              52,
+              48,
+              48,
+              44,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              66,
+              97,
+              100,
+              32,
+              82,
+              101,
+              113,
+              117,
+              101,
+              115,
+              116,
+              34,
+              44,
+              34,
+              112,
+              97,
+              116,
+              104,
+              34,
+              58,
+              34,
+              47,
+              97,
+              112,
+              105,
+              47,
+              116,
+              114,
+              97,
+              110,
+              115,
+              97,
+              99,
+              116,
+              105,
+              111,
+              110,
+              47,
+              116,
+              114,
+              97,
+              110,
+              115,
+              102,
+              101,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 23,
+          "responseSize": 115
+        },
+        "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+        "assertions": [
+          {
+            "assertion": "El acceso debe ser denegado (403 o 401)",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "El acceso debe ser denegado (403 o 401)",
+              "message": "expected 400 to be one of [ 401, 403 ]",
+              "stack": "AssertionError: expected 400 to be one of [ 401, 403 ]\n   at Object.eval sandbox-script.js:1:2)"
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "1e8278f6-a3bf-4a05-b722-dafdc8cd36a2",
+          "length": 5,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "52f45d1e-b2cc-46ba-91aa-2bf68cb3aec4"
+        },
+        "item": {
+          "id": "b997993a-e958-4d79-801c-72495f068ea2",
+          "name": "CP-08 Inyección SQL en Búsqueda",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "stock",
+                "search"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "MSFT'; DROP TABLE users;"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"El sistema no debe fallar con error interno (No 500)\", function () {\r",
+                  "    // Si escapa bien los caracteres, devolverá 200 (lista vacía) o 400 (Bad Request).\r",
+                  "    // Si devuelve 500, significa que la base de datos colapsó por la inyección.\r",
+                  "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                  "});\r",
+                  "pm.test(\"El tiempo de respuesta debe ser normal (menor a 500ms)\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "});"
+                ],
+                "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "stock",
+              "search"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [
+              {
+                "key": "query",
+                "value": "MSFT%27;%20DROP%20TABLE%20users;"
+              }
+            ],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "e8eb5c86-1aba-4fe3-82e1-aece19a7e07d",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8080",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "8d1499b8-c866-43ba-9f4c-f38cf603dd9c",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Method"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Headers"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Length",
+              "value": "0"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 19 Jul 2026 15:22:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": []
+          },
+          "cookie": [],
+          "responseTime": 928,
+          "responseSize": 0
+        },
+        "id": "b997993a-e958-4d79-801c-72495f068ea2",
+        "assertions": [
+          {
+            "assertion": "El sistema no debe fallar con error interno (No 500)",
+            "skipped": false
+          },
+          {
+            "assertion": "El tiempo de respuesta debe ser normal (menor a 500ms)",
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 1,
+              "test": "El tiempo de respuesta debe ser normal (menor a 500ms)",
+              "message": "expected 928 to be below 500",
+              "stack": "AssertionError: expected 928 to be below 500\n   at Object.eval sandbox-script.js:2:3)"
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "e4c4f930-bcc7-4690-917f-41eb7ca8adc2",
+          "length": 5,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "810bd1cf-df9d-4aae-86a1-6e4b29773954"
+        },
+        "item": {
+          "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+          "name": "CP-50 Transferencia Cíclica (A sí mismo)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "transaction",
+                "transfer"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"issuerUsername\": \"usuario_admin\",\r\n  \"receptorUsername\": \"usuario_admin\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corporation\",\r\n  \"quantity\": 10,\r\n  \"amount\": 500.00\r\n}"
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"La transacción cíclica es rechazada por el backend\", function () {\r",
+                  "    pm.expect(pm.response.code).to.not.equal(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"El mensaje de error debe ser pertinente\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    // Verifica que el backend arroje un mensaje de error o rechazo\r",
+                  "    pm.expect(jsonData).to.not.be.empty;\r",
+                  "});"
+                ],
+                "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "transaction",
+              "transfer"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "text/plain",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "a128335f-7f51-43e3-97cd-5df68200929a",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8080",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "178",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"issuerUsername\": \"usuario_admin\",\r\n  \"receptorUsername\": \"usuario_admin\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corporation\",\r\n  \"quantity\": 10,\r\n  \"amount\": 500.00\r\n}"
+          }
+        },
+        "response": {
+          "id": "e5ec569f-96f4-4929-8e80-165578f39062",
+          "status": "Unsupported Media Type",
+          "code": 415,
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Method"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Headers"
+            },
+            {
+              "key": "Accept",
+              "value": "application/json, application/*+json"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 19 Jul 2026 15:22:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              116,
+              105,
+              109,
+              101,
+              115,
+              116,
+              97,
+              109,
+              112,
+              34,
+              58,
+              34,
+              50,
+              48,
+              50,
+              54,
+              45,
+              48,
+              55,
+              45,
+              49,
+              57,
+              84,
+              49,
+              53,
+              58,
+              50,
+              50,
+              58,
+              48,
+              56,
+              46,
+              53,
+              50,
+              49,
+              43,
+              48,
+              48,
+              58,
+              48,
+              48,
+              34,
+              44,
+              34,
+              115,
+              116,
+              97,
+              116,
+              117,
+              115,
+              34,
+              58,
+              52,
+              49,
+              53,
+              44,
+              34,
+              101,
+              114,
+              114,
+              111,
+              114,
+              34,
+              58,
+              34,
+              85,
+              110,
+              115,
+              117,
+              112,
+              112,
+              111,
+              114,
+              116,
+              101,
+              100,
+              32,
+              77,
+              101,
+              100,
+              105,
+              97,
+              32,
+              84,
+              121,
+              112,
+              101,
+              34,
+              44,
+              34,
+              112,
+              97,
+              116,
+              104,
+              34,
+              58,
+              34,
+              47,
+              97,
+              112,
+              105,
+              47,
+              116,
+              114,
+              97,
+              110,
+              115,
+              97,
+              99,
+              116,
+              105,
+              111,
+              110,
+              47,
+              116,
+              114,
+              97,
+              110,
+              115,
+              102,
+              101,
+              114,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 7,
+          "responseSize": 126
+        },
+        "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+        "assertions": [
+          {
+            "assertion": "La transacción cíclica es rechazada por el backend",
+            "skipped": false
+          },
+          {
+            "assertion": "El mensaje de error debe ser pertinente",
+            "skipped": false
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "dea9c3d4-8190-4c57-933d-f81f6876e221",
+          "length": 5,
+          "cycles": 1,
+          "position": 4,
+          "iteration": 0,
+          "httpRequestId": "c5cb3c8e-4e35-4f2a-a506-df1109a307d0"
+        },
+        "item": {
+          "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+          "name": "CP-49 Doble Clic (Condición de Carrera)",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "transaction",
+                "buy"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"username\": \"investor01\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corp\",\r\n  \"quantity\": 10,\r\n  \"amount\": 3500.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "cf101856-4307-4042-980f-9bacab95afee",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"El endpoint responde y aísla la petición (No colapsa la BD)\", function () {\r",
+                  "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                  "});"
+                ],
+                "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8080",
+            "path": [
+              "api",
+              "transaction",
+              "buy"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json",
+              "system": true
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "a30b94c9-6958-4f51-b019-54a3ec060626",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8080",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "122",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "raw",
+            "raw": "{\r\n  \"username\": \"investor01\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corp\",\r\n  \"quantity\": 10,\r\n  \"amount\": 3500.0\r\n}",
+            "options": {
+              "raw": {
+                "language": "json"
+              }
+            }
+          }
+        },
+        "response": {
+          "id": "d0c89172-7dd0-484a-bfef-8b0555bf01fa",
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Vary",
+              "value": "Origin"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Method"
+            },
+            {
+              "key": "Vary",
+              "value": "Access-Control-Request-Headers"
+            },
+            {
+              "key": "X-Content-Type-Options",
+              "value": "nosniff"
+            },
+            {
+              "key": "X-XSS-Protection",
+              "value": "0"
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache, no-store, max-age=0, must-revalidate"
+            },
+            {
+              "key": "Pragma",
+              "value": "no-cache"
+            },
+            {
+              "key": "Expires",
+              "value": "0"
+            },
+            {
+              "key": "X-Frame-Options",
+              "value": "DENY"
+            },
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            },
+            {
+              "key": "Transfer-Encoding",
+              "value": "chunked"
+            },
+            {
+              "key": "Date",
+              "value": "Sun, 19 Jul 2026 15:22:08 GMT"
+            },
+            {
+              "key": "Keep-Alive",
+              "value": "timeout=60"
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              99,
+              111,
+              100,
+              101,
+              34,
+              58,
+              48,
+              44,
+              34,
+              109,
+              101,
+              115,
+              115,
+              97,
+              103,
+              101,
+              34,
+              58,
+              34,
+              80,
+              117,
+              114,
+              99,
+              104,
+              97,
+              115,
+              101,
+              32,
+              99,
+              111,
+              109,
+              112,
+              108,
+              101,
+              116,
+              101,
+              100,
+              32,
+              115,
+              117,
+              99,
+              99,
+              101,
+              115,
+              115,
+              102,
+              117,
+              108,
+              108,
+              121,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 83,
+          "responseSize": 54
+        },
+        "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+        "assertions": [
+          {
+            "assertion": "El endpoint responde y aísla la petición (No colapsa la BD)",
+            "skipped": false
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 468
+    },
+    "failures": [
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
+          "test": "El acceso debe ser denegado (403 o 401)",
+          "message": "expected 400 to be one of [ 401, 403 ]",
+          "stack": "AssertionError: expected 400 to be one of [ 401, 403 ]\n   at Object.eval sandbox-script.js:1:2)",
+          "checksum": "4e60325bf2d9a6f324efd55f1c3e3626",
+          "id": "33ab76cd-9b29-4acc-b3af-e97d6909f435",
+          "timestamp": 1784474527559,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 2,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+          "name": "CP-36 Transferencia sin Token",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "transaction",
+                "transfer"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"El acceso debe ser denegado (403 o 401)\", function () {\r",
+                  "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                  "});"
+                ],
+                "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+            "exporter_id": "50714882",
+            "collection_link": "https://go.postman.co/collection/50714882-f8bf8d1b-952a-453d-add7-c358b1a8397c?source=collection_link"
+          },
+          "item": [
+            {
+              "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+              "name": "CP-11 Consultar Mercado",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "stock",
+                    "all"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "noauth",
+                  "noauth": []
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"code\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+              "name": "CP-36 Transferencia sin Token",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "transfer"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El acceso debe ser denegado (403 o 401)\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "b997993a-e958-4d79-801c-72495f068ea2",
+              "name": "CP-08 Inyección SQL en Búsqueda",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "stock",
+                    "search"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "MSFT'; DROP TABLE users;"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El sistema no debe fallar con error interno (No 500)\", function () {\r",
+                      "    // Si escapa bien los caracteres, devolverá 200 (lista vacía) o 400 (Bad Request).\r",
+                      "    // Si devuelve 500, significa que la base de datos colapsó por la inyección.\r",
+                      "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                      "});\r",
+                      "pm.test(\"El tiempo de respuesta debe ser normal (menor a 500ms)\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+              "name": "CP-50 Transferencia Cíclica (A sí mismo)",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "transfer"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"issuerUsername\": \"usuario_admin\",\r\n  \"receptorUsername\": \"usuario_admin\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corporation\",\r\n  \"quantity\": 10,\r\n  \"amount\": 500.00\r\n}"
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"La transacción cíclica es rechazada por el backend\", function () {\r",
+                      "    pm.expect(pm.response.code).to.not.equal(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"El mensaje de error debe ser pertinente\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    // Verifica que el backend arroje un mensaje de error o rechazo\r",
+                      "    pm.expect(jsonData).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+              "name": "CP-49 Doble Clic (Condición de Carrera)",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "buy"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"investor01\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corp\",\r\n  \"quantity\": 10,\r\n  \"amount\": 3500.0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "cf101856-4307-4042-980f-9bacab95afee",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El endpoint responde y aísla la petición (No colapsa la BD)\", function () {\r",
+                      "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+            "name": "Stock Simulator - Integración",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "ref": "1ba7eabe-9b37-4dfb-bf27-34605dcf16f4",
+          "length": 5,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "d9f69a04-9032-4558-a930-093b4bea7a15",
+          "scriptId": "96a887b7-97da-49af-a802-338f6aba4836",
+          "execution": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 1,
+          "test": "El tiempo de respuesta debe ser normal (menor a 500ms)",
+          "message": "expected 928 to be below 500",
+          "stack": "AssertionError: expected 928 to be below 500\n   at Object.eval sandbox-script.js:2:3)",
+          "checksum": "a096f718fa96ae3f1eef705ee3930ede",
+          "id": "930021d9-43bf-48af-98de-ff355f225cb3",
+          "timestamp": 1784474528507,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 2,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 3,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:1 in test-script",
+        "source": {
+          "id": "b997993a-e958-4d79-801c-72495f068ea2",
+          "name": "CP-08 Inyección SQL en Búsqueda",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "stock",
+                "search"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [
+                {
+                  "key": "query",
+                  "value": "MSFT'; DROP TABLE users;"
+                }
+              ],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"El sistema no debe fallar con error interno (No 500)\", function () {\r",
+                  "    // Si escapa bien los caracteres, devolverá 200 (lista vacía) o 400 (Bad Request).\r",
+                  "    // Si devuelve 500, significa que la base de datos colapsó por la inyección.\r",
+                  "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                  "});\r",
+                  "pm.test(\"El tiempo de respuesta debe ser normal (menor a 500ms)\", function () {\r",
+                  "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                  "});"
+                ],
+                "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+            "exporter_id": "50714882",
+            "collection_link": "https://go.postman.co/collection/50714882-f8bf8d1b-952a-453d-add7-c358b1a8397c?source=collection_link"
+          },
+          "item": [
+            {
+              "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+              "name": "CP-11 Consultar Mercado",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "stock",
+                    "all"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "noauth",
+                  "noauth": []
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"code\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+              "name": "CP-36 Transferencia sin Token",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "transfer"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El acceso debe ser denegado (403 o 401)\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "b997993a-e958-4d79-801c-72495f068ea2",
+              "name": "CP-08 Inyección SQL en Búsqueda",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "stock",
+                    "search"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "MSFT'; DROP TABLE users;"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El sistema no debe fallar con error interno (No 500)\", function () {\r",
+                      "    // Si escapa bien los caracteres, devolverá 200 (lista vacía) o 400 (Bad Request).\r",
+                      "    // Si devuelve 500, significa que la base de datos colapsó por la inyección.\r",
+                      "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                      "});\r",
+                      "pm.test(\"El tiempo de respuesta debe ser normal (menor a 500ms)\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+              "name": "CP-50 Transferencia Cíclica (A sí mismo)",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "transfer"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"issuerUsername\": \"usuario_admin\",\r\n  \"receptorUsername\": \"usuario_admin\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corporation\",\r\n  \"quantity\": 10,\r\n  \"amount\": 500.00\r\n}"
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"La transacción cíclica es rechazada por el backend\", function () {\r",
+                      "    pm.expect(pm.response.code).to.not.equal(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"El mensaje de error debe ser pertinente\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    // Verifica que el backend arroje un mensaje de error o rechazo\r",
+                      "    pm.expect(jsonData).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+              "name": "CP-49 Doble Clic (Condición de Carrera)",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "buy"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"investor01\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corp\",\r\n  \"quantity\": 10,\r\n  \"amount\": 3500.0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "cf101856-4307-4042-980f-9bacab95afee",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El endpoint responde y aísla la petición (No colapsa la BD)\", function () {\r",
+                      "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+            "name": "Stock Simulator - Integración",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "ref": "1e8278f6-a3bf-4a05-b722-dafdc8cd36a2",
+          "length": 5,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "52f45d1e-b2cc-46ba-91aa-2bf68cb3aec4",
+          "scriptId": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+          "execution": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+        }
+      }
+    ],
+    "error": null
+  }
+}

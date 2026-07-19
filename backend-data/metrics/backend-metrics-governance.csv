@@ -1,0 +1,7 @@
+"metric","value","unit","description"
+"coverage_percent","23.88","percent","Cobertura total de líneas ejecutadas por JUnit"
+"unit_test_success_rate_percent","35.29","percent","Tasa de éxito de pruebas unitarias"
+"defect_density_unitarias","0.7857","defectos_por_clase","Densidad de defectos unitarias por clase probada"
+"api_pass_rate_percent","75","percent","Tasa de éxito API en Newman"
+"api_defect_density","0.25","defectos_por_assertion","Densidad de defectos en las aserciones de Newman"
+"pipeline_lead_time_seconds","37","seconds","Duración del pipeline desde su inicio hasta el final del script"

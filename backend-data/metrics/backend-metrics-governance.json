@@ -1,0 +1,14 @@
+{
+  "coverage_percent": 23.88,
+  "unit_test_success_rate_percent": 35.29,
+  "defect_density_unitarias": 0.7857,
+  "api_pass_rate_percent": 75,
+  "api_defect_density": 0.25,
+  "pipeline_lead_time_seconds": 37,
+  "surefire_tests_total": 17,
+  "surefire_failures_total": 11,
+  "surefire_skipped_total": 0,
+  "surefire_classes_total": 14,
+  "newman_assertions_total": 8,
+  "newman_assertions_failed": 2
+}
