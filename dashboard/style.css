@@ -1,0 +1,287 @@
+:root {
+    --primary-bg: #101827;      /* Un fondo más oscuro y neutro */
+    --secondary-bg: #1f2937;    /* El antiguo primario, ahora secundario */
+    --card-bg: #374151;        /* El antiguo secundario, ahora para tarjetas */
+    --text-primary: #f9fafb;
+    --text-secondary: #d1d5db;
+    --accent-color: #4ade80;    /* Verde esmeralda como acento principal */
+    --border-color: #4b5563;    /* Un borde más sutil */
+    --success-color: #22c55e;    /* Un verde más intenso para éxito */
+    --warning-color: #fbbf24;
+    --error-color: #f87171;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--primary-bg);
+    color: var(--text-primary);
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+header h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: var(--accent-color);
+}
+
+nav button {
+    background-color: var(--secondary-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1.5rem;
+    margin: 0 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+nav button:hover {
+    background-color: var(--card-bg);
+}
+
+nav button.active {
+    background-color: var(--accent-color);
+    color: var(--primary-bg);
+    font-weight: 500;
+}
+
+.view {
+    display: none;
+}
+
+.view.active {
+    display: block;
+    padding: 0 2rem; /* Añade margen horizontal a las vistas activas */
+}
+
+#metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.metric-card {
+    background-color: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-left: 5px solid var(--accent-color);
+}
+
+.metric-card h3 {
+    margin-top: 0;
+    font-size: 1.25rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.metric-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.metric-description {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+#reports-container {
+    background-color: var(--secondary-bg);
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.report-selector {
+    margin-bottom: 1rem;
+}
+
+#report-select {
+    width: 100%;
+    padding: 0.75rem;
+    background-color: var(--card-bg);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+}
+
+.report-content-area {
+    background-color: var(--primary-bg);
+    padding: 1rem;
+    border-radius: 8px;
+    min-height: 400px;
+    overflow-x: auto;
+}
+
+.report-content-area pre {
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+footer {
+    text-align: center;
+    margin-top: 3rem;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+/* --- ESTILOS PARA TARJETAS INTERACTIVAS --- */
+.metric-card {
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.metric-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+    border-left-color: #34d399; /* Ilumina el borde al pasar el mouse */
+}
+
+/* --- ESTILOS DEL MODAL --- */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Fondo oscuro transparente */
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 2rem;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 700px;
+    border: 1px solid var(--border-color);
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: var(--text-secondary);
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: var(--error-color);
+}
+
+.modal-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin-top: 1.5rem;
+}
+
+.modal-details {
+    flex: 1;
+    min-width: 250px;
+    background-color: var(--primary-bg);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.modal-details ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.modal-details li {
+    padding: 0.5rem 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+}
+.modal-details li:last-child {
+    border-bottom: none;
+}
+
+.modal-chart-container {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    height: 250px;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 2.5rem;
+    border-radius: 12px;
+    width: 98%; /* Ocupa más ancho de la pantalla */
+    max-width: 1000px; /* Aumentado de 700px a 1000px para hacerlo mucho más grande */
+    max-height: 90vh; /* Evita que se salga de la pantalla verticalmente */
+    overflow-y: auto; /* Agrega scroll si el desglose es muy largo */
+    border: 1px solid var(--border-color);
+    position: relative;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.modal-chart-container {
+    flex: 1;
+    min-width: 250px;
+    position: relative;
+    height: 350px; /* Aumentado de 250px a 350px para que el gráfico de torta se vea genial */
+}
+
+/* --- VISOR DE REPORTES INTERACTIVO --- */
+.report-render-container {
+    background-color: var(--primary-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    min-height: 400px;
+}
+
+.report-badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+.badge-success { background-color: rgba(52, 211, 153, 0.2); color: var(--success-color); }
+.badge-fail { background-color: rgba(248, 113, 113, 0.2); color: var(--error-color); }
+
+.report-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    color: var(--text-primary);
+}
+.report-table th, .report-table td {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color);
+}
+.report-table th { background-color: var(--secondary-bg); color: var(--accent-color); }
+
+.trace-block {
+    background-color: #111827;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-family: monospace;
+    font-size: 0.85rem;
+    color: var(--error-color);
+    white-space: pre-wrap;
+    margin-top: 0.5rem;
+}
+.placeholder-text { text-align: center; color: var(--text-secondary); margin-top: 5rem; }

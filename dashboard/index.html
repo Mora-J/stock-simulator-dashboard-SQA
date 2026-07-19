@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Calidad de Software</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- IMPORTANTE: Añadir Chart.js para los gráficos de torta -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Tu header y nav permanecen igual -->
+        <h1>Dashboard de Calidad de Software (SQA)</h1>
+        <nav>
+            <button id="show-dashboard" class="active">Métricas de Calidad</button>
+            <button id="show-reports">Visor de Reportes</button>
+        </nav>
+    </header>
+    <main>
+        <div id="dashboard-view" class="view active">
+            <h2>Métricas de Calidad</h2>
+            <div id="metrics-grid">
+                <!-- Tarjetas dinámicas -->
+            </div>
+        </div>
+        <!-- Tu visor de reportes permanece igual -->
+        <div id="reports-view" class="view">
+    <h2>Visor de Reportes Estructurado</h2>
+    <div id="reports-container">
+        <div class="report-selector">
+            <label for="report-select">Seleccionar Reporte:</label>
+            <select id="report-select">
+                <option value="">-- Elija un reporte --</option>
+            </select>
+        </div>
+        
+        <!-- Contenedor dinámico estructurado para el reporte -->
+        <div id="report-rendered-area" class="report-render-container">
+            <div id="report-summary-header"></div>
+            <div id="report-dynamic-tables">
+                <p class="placeholder-text">Seleccione un reporte para auditar la casuística de fallas detallada.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- NUEVO: Modal Interactivo para el desglose de métricas -->
+    <div id="metric-modal" class="modal">
+        <div class="modal-content">
+            <span id="close-modal" class="close-btn">&times;</span>
+            <h2 id="modal-title">Título</h2>
+            <p id="modal-description" class="metric-description"></p>
+            
+            <div class="modal-body">
+                <div class="modal-details" id="modal-details">
+                    <!-- El desglose inyectado por JS irá aquí -->
+                </div>
+                <div class="modal-chart-container">
+                    <canvas id="modal-pie-chart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Dashboard generado para el proyecto Stock Simulator.</p>
+    </footer>
+    <script src="script.js"></script>
+</body>
+</html>
