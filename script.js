@@ -96,25 +96,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // --- RUTAS DE ARCHIVOS ---
 const FILE_PATHS = {
-    backendMetrics: 'backend-data/metrics/backend-metrics-governance.json',
-    frontendMetrics: 'frontend-data/metrics/frontend-metrics-governance.json',
-    newmanReport: 'backend-data/reports/newman/newman-report.json',
-    cypressReport: 'frontend-data/reports/cypress/cypress-report-merged.json',
+    backendMetrics: 'backend-data/metrics/backend-metrics-governance.json', // Ruta corregida
+    frontendMetrics: 'frontend-data/metrics/frontend-metrics-governance.json', // Ruta corregida
+    newmanReport: 'backend-data/reports/newman/newman-report.json', // Ruta corregida
+    cypressReport: 'frontend-data/reports/cypress/cypress-report-merged.json', // Ruta corregida
     surefireReports: [
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.controller.StockControllerResponseWrapperTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.controller.TransactionControllerInsufficientBalanceTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.controller.UserControllerDuplicateUsernameTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.dto.request.BuyRequestDTOTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.dto.request.SellRequestDTOTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.model.OwnedStockNegativeBalanceTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.model.TransactionAmountRoundingTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.security.SecurityConfigurationJwtTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.StockEODServiceTimeoutTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.StockServiceMapToDTOTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.TransactionServiceVerifyVisaTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.UserServiceRegisterPasswordHashTest.xml',
-        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.StockSimulatorApplicationTests.xml',
-        'backend-data/reports/surefire/TEST-util.PasswordUtilMatchesTest.xml'
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.controller.StockControllerResponseWrapperTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.controller.TransactionControllerInsufficientBalanceTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.controller.UserControllerDuplicateUsernameTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.dto.request.BuyRequestDTOTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.dto.request.SellRequestDTOTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.model.OwnedStockNegativeBalanceTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.model.TransactionAmountRoundingTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.security.SecurityConfigurationJwtTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.StockEODServiceTimeoutTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.StockServiceMapToDTOTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.TransactionServiceVerifyVisaTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.service.UserServiceRegisterPasswordHashTest.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-ucab.edu.ve.stocksimulator.StockSimulatorApplicationTests.xml', // Ruta corregida
+        'backend-data/reports/surefire/TEST-util.PasswordUtilMatchesTest.xml' // Ruta corregida
     ]
 };
 
@@ -392,7 +392,7 @@ async function setupReportSelector() {
 async function fetchFile(path) {
     try {
         // En GitHub Pages o Live Server, el dashboard lee la carpeta relativa a su misma ubicación
-        const response = await fetch(`../${path}`);
+        const response = await fetch(path); // Corregido: quitamos el prefijo '../'
         if (!response.ok) {
             throw new Error(`HTTP ${response.status} - No se encontró: ${path}`);
         }
