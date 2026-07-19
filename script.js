@@ -282,11 +282,48 @@ async function loadMetrics() {
                 chart: { labels: ['Backend (s)', 'Frontend (s)'], data: [backendLeadTime, frontendLeadTime], colors: ['#8b5cf6', '#ec4899'] }
             }
         );
+    // --- Nivel 5: Métrica de Proyecto (Gestión SQA Estática) ---
+        renderMetricCard(
+            'Ejecución del PAC (Proyecto)', 
+            '100%', 
+            'Mide el cumplimiento del cronograma de tareas del equipo SQA en Jira.',
+            {
+                breakdown: [
+                    { label: 'Tareas SQA Completadas (Fase 1 y 2)', value: '8' },
+                    { label: 'Tareas SQA Totales Planificadas', value: '8' },
+                    { label: 'Fórmula', value: '(Completadas / Planificadas) * 100' }
+                ],
+                chart: { 
+                    labels: ['Tareas Completadas', 'Tareas Pendientes'], 
+                    data: [8, 0], 
+                    colors: ['#3b82f6', '#1f2937'] 
+                }
+            }
+        );
+        
+    // --- Nivel 6: Métrica de Proyecto (Deslizamiento Interno SQA) ---
+        renderMetricCard(
+            'Desviación de Hito Crítico (Slippage)', 
+            '+21 Días', 
+            'Mide el retraso real en las tareas intermedias, aislando la prórroga por fuerza mayor.',
+            {
+                breakdown: [
+                    { label: 'Hito Intermedio Evaluado', value: 'Tarea 7: Levantamiento de Métricas' },
+                    { label: 'Línea Base Original (PAC v1.1)', value: '25/05/2026' },
+                    { label: 'Fecha Ajustada (Con Prórroga 34 días)', value: '28/06/2026' },
+                    { label: 'Fecha Real de Ejecución (FR)', value: '19/07/2026' },
+                    { label: 'Desviación Real (FR - Fecha Ajustada)', value: '+21 Días de ineficiencia' },
+                    { label: 'Diagnóstico de Proceso', value: 'Desbalance en la ejecución del cronograma.' }
+                ],
+                chart: null 
+            }
+        );
 
     } catch (error) {
         console.error("Error al cargar las métricas:", error);
         metricsGrid.innerHTML = `<p class="error" style="color:var(--error-color)">Error al cargar métricas: ${error.message}</p>`;
     }
+
 }
 
 // Nueva función de Renderizado con soporte para Modal
