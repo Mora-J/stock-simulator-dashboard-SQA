@@ -7,7 +7,7 @@
     },
     "item": [
       {
-        "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+        "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
         "name": "CP-11 Consultar Mercado",
         "request": {
           "url": {
@@ -35,12 +35,12 @@
           {
             "listen": "test",
             "script": {
-              "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+              "id": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
               "type": "text/javascript",
               "packages": {},
               "exec": [
                 "pm.test(\"Status code is 200\", function () {\r",
-                "    pm.response.to.have.status(200);\r",
+                "    pm.response.to.have.status(500);\r",
                 "});\r",
                 "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
                 "    var jsonData = pm.response.json();\r",
@@ -48,13 +48,13 @@
                 "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
                 "});"
               ],
-              "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+              "_lastExecutionId": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
             }
           }
         ]
       },
       {
-        "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+        "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
         "name": "CP-36 Transferencia sin Token",
         "request": {
           "url": {
@@ -87,7 +87,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "96a887b7-97da-49af-a802-338f6aba4836",
+              "id": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
               "type": "text/javascript",
               "packages": {},
               "exec": [
@@ -95,13 +95,13 @@
                 "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
                 "});"
               ],
-              "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+              "_lastExecutionId": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
             }
           }
         ]
       },
       {
-        "id": "b997993a-e958-4d79-801c-72495f068ea2",
+        "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
         "name": "CP-08 Inyección SQL en Búsqueda",
         "request": {
           "url": {
@@ -130,7 +130,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+              "id": "e6793553-70f0-4760-815a-ab8ca52fc54d",
               "type": "text/javascript",
               "packages": {},
               "exec": [
@@ -143,13 +143,13 @@
                 "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
                 "});"
               ],
-              "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+              "_lastExecutionId": "2de62962-0909-4457-ab27-33eef340df3f"
             }
           }
         ]
       },
       {
-        "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+        "id": "0246d577-b747-4bfe-8db5-adc01441243e",
         "name": "CP-50 Transferencia Cíclica (A sí mismo)",
         "request": {
           "url": {
@@ -177,7 +177,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+              "id": "81d7f019-ef02-4b57-a2e1-a9806ad44b13",
               "type": "text/javascript",
               "packages": {},
               "exec": [
@@ -191,13 +191,13 @@
                 "    pm.expect(jsonData).to.not.be.empty;\r",
                 "});"
               ],
-              "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+              "_lastExecutionId": "3d0f1e1c-fbe2-4546-a324-f5393547cdc5"
             }
           }
         ]
       },
       {
-        "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+        "id": "fbab7334-1ff8-41cb-a80c-c476465dab03",
         "name": "CP-49 Doble Clic (Condición de Carrera)",
         "request": {
           "url": {
@@ -230,7 +230,7 @@
           {
             "listen": "test",
             "script": {
-              "id": "cf101856-4307-4042-980f-9bacab95afee",
+              "id": "f515d382-db86-4953-8ce5-6624d2c3dd1a",
               "type": "text/javascript",
               "packages": {},
               "exec": [
@@ -238,7 +238,7 @@
                 "    pm.expect(pm.response.code).to.not.equal(500);\r",
                 "});"
               ],
-              "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+              "_lastExecutionId": "e5b8cfb1-a439-4950-9707-22c0f096ff9d"
             }
           }
         ]
@@ -253,11 +253,11 @@
     }
   },
   "environment": {
-    "id": "8ba68abb-556b-44d0-be75-65fc641bb91d",
+    "id": "45485f03-daab-4cd6-a7c7-495921313c14",
     "values": []
   },
   "globals": {
-    "id": "c8a2fb7c-44f7-4a8c-9c77-1b672029aa46",
+    "id": "cde0e039-59bc-410f-b5c5-9c6ed4ab226f",
     "values": []
   },
   "run": {
@@ -295,7 +295,7 @@
       "assertions": {
         "total": 8,
         "pending": 0,
-        "failed": 2
+        "failed": 3
       },
       "testScripts": {
         "total": 5,
@@ -309,10 +309,10 @@
       }
     },
     "timings": {
-      "responseAverage": 213.4,
-      "responseMin": 7,
-      "responseMax": 928,
-      "responseSd": 358.2259622082128,
+      "responseAverage": 195.2,
+      "responseMin": 9,
+      "responseMax": 826,
+      "responseSd": 316.5421930801643,
       "dnsAverage": 0,
       "dnsMin": 0,
       "dnsMax": 0,
@@ -321,8 +321,8 @@
       "firstByteMin": 0,
       "firstByteMax": 0,
       "firstByteSd": 0,
-      "started": 1784474527462,
-      "completed": 1784474528628
+      "started": 1784592285880,
+      "completed": 1784592286962
     },
     "executions": [
       {
@@ -335,11 +335,11 @@
           "eof": false,
           "bof": true,
           "cr": false,
-          "ref": "6a261ceb-9e31-415b-8726-563261fa5900",
-          "httpRequestId": "04634593-bb50-41b5-b6ab-69ad4d990dce"
+          "ref": "0b5781a7-d39c-49c1-b1a3-79b5dd205b58",
+          "httpRequestId": "80f77214-15ac-4538-a9dd-50b5393380e9"
         },
         "item": {
-          "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+          "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
           "name": "CP-11 Consultar Mercado",
           "request": {
             "url": {
@@ -367,12 +367,12 @@
             {
               "listen": "test",
               "script": {
-                "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+                "id": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
                   "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
+                  "    pm.response.to.have.status(500);\r",
                   "});\r",
                   "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
                   "    var jsonData = pm.response.json();\r",
@@ -380,7 +380,7 @@
                   "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
                   "});"
                 ],
-                "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+                "_lastExecutionId": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
               }
             }
           ]
@@ -418,7 +418,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "f71737fb-12c8-4eb6-bb50-d22705a53bec",
+              "value": "61c38f5c-8b48-436d-acf5-fb626cde0132",
               "system": true
             },
             {
@@ -444,7 +444,7 @@
           }
         },
         "response": {
-          "id": "cb128a4e-57d3-413f-ae09-fd8386b07de4",
+          "id": "894d8c65-d911-4be9-b22e-ecd761d4879d",
           "status": "OK",
           "code": 200,
           "header": [
@@ -494,7 +494,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 19 Jul 2026 15:22:07 GMT"
+              "value": "Tue, 21 Jul 2026 00:04:45 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -684,14 +684,21 @@
             ]
           },
           "cookie": [],
-          "responseTime": 26,
+          "responseTime": 28,
           "responseSize": 173
         },
-        "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+        "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
         "assertions": [
           {
             "assertion": "Status code is 200",
-            "skipped": false
+            "skipped": false,
+            "error": {
+              "name": "AssertionError",
+              "index": 0,
+              "test": "Status code is 200",
+              "message": "expected response to have status code 500 but got 200",
+              "stack": "AssertionError: expected response to have status code 500 but got 200\n   at Object.eval sandbox-script.js:1:1)"
+            }
           },
           {
             "assertion": "La respuesta usa la estructura StockListResponseDTO (Es un json valido)",
@@ -701,15 +708,15 @@
       },
       {
         "cursor": {
-          "ref": "1ba7eabe-9b37-4dfb-bf27-34605dcf16f4",
+          "ref": "0ddb282d-5c59-4772-9901-3cf6c936643c",
           "length": 5,
           "cycles": 1,
           "position": 1,
           "iteration": 0,
-          "httpRequestId": "d9f69a04-9032-4558-a930-093b4bea7a15"
+          "httpRequestId": "6ee1f6a1-0916-420f-a91f-a4e8d18164ee"
         },
         "item": {
-          "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+          "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
           "name": "CP-36 Transferencia sin Token",
           "request": {
             "url": {
@@ -742,7 +749,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                "id": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
@@ -750,7 +757,7 @@
                   "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
                   "});"
                 ],
-                "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+                "_lastExecutionId": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
               }
             }
           ]
@@ -788,7 +795,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "4e70e3e1-0646-46c0-afd3-f551fb884e1e",
+              "value": "c3ae406f-f0f7-4dfb-8441-9f753d98cb3c",
               "system": true
             },
             {
@@ -824,7 +831,7 @@
           }
         },
         "response": {
-          "id": "27ff3629-74b8-413e-a3bc-b593834e80bb",
+          "id": "fe9eb009-1382-4b50-a89b-a5384903213d",
           "status": "Bad Request",
           "code": 400,
           "header": [
@@ -874,7 +881,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 19 Jul 2026 15:22:07 GMT"
+              "value": "Tue, 21 Jul 2026 00:04:45 GMT"
             },
             {
               "key": "Connection",
@@ -906,21 +913,21 @@
               48,
               55,
               45,
+              50,
               49,
-              57,
               84,
-              49,
-              53,
-              58,
-              50,
-              50,
+              48,
+              48,
               58,
               48,
-              55,
-              46,
-              53,
               52,
-              48,
+              58,
+              52,
+              53,
+              46,
+              57,
+              54,
+              56,
               43,
               48,
               48,
@@ -1002,10 +1009,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 23,
+          "responseTime": 25,
           "responseSize": 115
         },
-        "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+        "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
         "assertions": [
           {
             "assertion": "El acceso debe ser denegado (403 o 401)",
@@ -1022,15 +1029,15 @@
       },
       {
         "cursor": {
-          "ref": "1e8278f6-a3bf-4a05-b722-dafdc8cd36a2",
+          "ref": "39f29b83-b3a4-4a02-bd60-3f26b9e8de15",
           "length": 5,
           "cycles": 1,
           "position": 2,
           "iteration": 0,
-          "httpRequestId": "52f45d1e-b2cc-46ba-91aa-2bf68cb3aec4"
+          "httpRequestId": "6eade56d-a425-40ad-9c66-084fcdf085ac"
         },
         "item": {
-          "id": "b997993a-e958-4d79-801c-72495f068ea2",
+          "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
           "name": "CP-08 Inyección SQL en Búsqueda",
           "request": {
             "url": {
@@ -1059,7 +1066,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                "id": "e6793553-70f0-4760-815a-ab8ca52fc54d",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
@@ -1072,7 +1079,7 @@
                   "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
                   "});"
                 ],
-                "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+                "_lastExecutionId": "2de62962-0909-4457-ab27-33eef340df3f"
               }
             }
           ]
@@ -1115,7 +1122,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "e8eb5c86-1aba-4fe3-82e1-aece19a7e07d",
+              "value": "2f7b177b-a2f3-4483-8021-4d8916c6351a",
               "system": true
             },
             {
@@ -1137,7 +1144,7 @@
           "method": "GET"
         },
         "response": {
-          "id": "8d1499b8-c866-43ba-9f4c-f38cf603dd9c",
+          "id": "e1ff4ddd-d58b-48c9-83e4-964ea867af8d",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1183,7 +1190,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 19 Jul 2026 15:22:08 GMT"
+              "value": "Tue, 21 Jul 2026 00:04:46 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -1199,10 +1206,10 @@
             "data": []
           },
           "cookie": [],
-          "responseTime": 928,
+          "responseTime": 826,
           "responseSize": 0
         },
-        "id": "b997993a-e958-4d79-801c-72495f068ea2",
+        "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
         "assertions": [
           {
             "assertion": "El sistema no debe fallar con error interno (No 500)",
@@ -1215,23 +1222,23 @@
               "name": "AssertionError",
               "index": 1,
               "test": "El tiempo de respuesta debe ser normal (menor a 500ms)",
-              "message": "expected 928 to be below 500",
-              "stack": "AssertionError: expected 928 to be below 500\n   at Object.eval sandbox-script.js:2:3)"
+              "message": "expected 826 to be below 500",
+              "stack": "AssertionError: expected 826 to be below 500\n   at Object.eval sandbox-script.js:2:3)"
             }
           }
         ]
       },
       {
         "cursor": {
-          "ref": "e4c4f930-bcc7-4690-917f-41eb7ca8adc2",
+          "ref": "913654c8-6fde-4910-a2b6-a1a34028b138",
           "length": 5,
           "cycles": 1,
           "position": 3,
           "iteration": 0,
-          "httpRequestId": "810bd1cf-df9d-4aae-86a1-6e4b29773954"
+          "httpRequestId": "c92fce98-2c53-4704-8de0-72e545325487"
         },
         "item": {
-          "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+          "id": "0246d577-b747-4bfe-8db5-adc01441243e",
           "name": "CP-50 Transferencia Cíclica (A sí mismo)",
           "request": {
             "url": {
@@ -1259,7 +1266,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+                "id": "81d7f019-ef02-4b57-a2e1-a9806ad44b13",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
@@ -1273,7 +1280,7 @@
                   "    pm.expect(jsonData).to.not.be.empty;\r",
                   "});"
                 ],
-                "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+                "_lastExecutionId": "3d0f1e1c-fbe2-4546-a324-f5393547cdc5"
               }
             }
           ]
@@ -1316,7 +1323,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "a128335f-7f51-43e3-97cd-5df68200929a",
+              "value": "14980fe0-80ef-40f0-a323-a1983e1c5e03",
               "system": true
             },
             {
@@ -1347,7 +1354,7 @@
           }
         },
         "response": {
-          "id": "e5ec569f-96f4-4929-8e80-165578f39062",
+          "id": "de77c92d-6301-4139-9feb-8f16e1993a91",
           "status": "Unsupported Media Type",
           "code": 415,
           "header": [
@@ -1401,7 +1408,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 19 Jul 2026 15:22:08 GMT"
+              "value": "Tue, 21 Jul 2026 00:04:46 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -1437,21 +1444,21 @@
               48,
               55,
               45,
+              50,
               49,
-              57,
               84,
-              49,
-              53,
-              58,
-              50,
-              50,
+              48,
+              48,
               58,
               48,
-              56,
+              52,
+              58,
+              52,
+              54,
               46,
+              56,
+              52,
               53,
-              50,
-              49,
               43,
               48,
               48,
@@ -1544,10 +1551,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 7,
+          "responseTime": 9,
           "responseSize": 126
         },
-        "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+        "id": "0246d577-b747-4bfe-8db5-adc01441243e",
         "assertions": [
           {
             "assertion": "La transacción cíclica es rechazada por el backend",
@@ -1561,15 +1568,15 @@
       },
       {
         "cursor": {
-          "ref": "dea9c3d4-8190-4c57-933d-f81f6876e221",
+          "ref": "0144001c-6efc-404d-b664-b27156a08b45",
           "length": 5,
           "cycles": 1,
           "position": 4,
           "iteration": 0,
-          "httpRequestId": "c5cb3c8e-4e35-4f2a-a506-df1109a307d0"
+          "httpRequestId": "24c37912-d264-419d-b88b-6ad85a7adf17"
         },
         "item": {
-          "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+          "id": "fbab7334-1ff8-41cb-a80c-c476465dab03",
           "name": "CP-49 Doble Clic (Condición de Carrera)",
           "request": {
             "url": {
@@ -1602,7 +1609,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "cf101856-4307-4042-980f-9bacab95afee",
+                "id": "f515d382-db86-4953-8ce5-6624d2c3dd1a",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
@@ -1610,7 +1617,7 @@
                   "    pm.expect(pm.response.code).to.not.equal(500);\r",
                   "});"
                 ],
-                "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+                "_lastExecutionId": "e5b8cfb1-a439-4950-9707-22c0f096ff9d"
               }
             }
           ]
@@ -1653,7 +1660,7 @@
             },
             {
               "key": "Postman-Token",
-              "value": "a30b94c9-6958-4f51-b019-54a3ec060626",
+              "value": "a6d8ef17-0369-4155-9362-3d4921046b14",
               "system": true
             },
             {
@@ -1689,7 +1696,7 @@
           }
         },
         "response": {
-          "id": "d0c89172-7dd0-484a-bfef-8b0555bf01fa",
+          "id": "d97d153c-65ce-48b9-ac6d-ce46a3779e03",
           "status": "OK",
           "code": 200,
           "header": [
@@ -1739,7 +1746,7 @@
             },
             {
               "key": "Date",
-              "value": "Sun, 19 Jul 2026 15:22:08 GMT"
+              "value": "Tue, 21 Jul 2026 00:04:46 GMT"
             },
             {
               "key": "Keep-Alive",
@@ -1810,10 +1817,10 @@
             ]
           },
           "cookie": [],
-          "responseTime": 83,
+          "responseTime": 88,
           "responseSize": 54
         },
-        "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+        "id": "fbab7334-1ff8-41cb-a80c-c476465dab03",
         "assertions": [
           {
             "assertion": "El endpoint responde y aísla la petición (No colapsa la BD)",
@@ -1830,12 +1837,350 @@
         "error": {
           "name": "AssertionError",
           "index": 0,
+          "test": "Status code is 200",
+          "message": "expected response to have status code 500 but got 200",
+          "stack": "AssertionError: expected response to have status code 500 but got 200\n   at Object.eval sandbox-script.js:1:1)",
+          "checksum": "e1cf28de0251f1e54afe381b769194ed",
+          "id": "f9333318-90b9-4ded-9178-147213bed6da",
+          "timestamp": 1784592285939,
+          "stacktrace": [
+            {
+              "fileName": "sandbox-script.js",
+              "lineNumber": 1,
+              "functionName": "Object.eval",
+              "typeName": "Object",
+              "methodName": "eval",
+              "columnNumber": 1,
+              "native": false
+            }
+          ]
+        },
+        "at": "assertion:0 in test-script",
+        "source": {
+          "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
+          "name": "CP-11 Consultar Mercado",
+          "request": {
+            "url": {
+              "protocol": "http",
+              "port": "8080",
+              "path": [
+                "api",
+                "stock",
+                "all"
+              ],
+              "host": [
+                "localhost"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET",
+            "auth": {
+              "type": "noauth",
+              "noauth": []
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
+                "type": "text/javascript",
+                "packages": {},
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});\r",
+                  "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData).to.have.property(\"code\");\r",
+                  "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
+                  "});"
+                ],
+                "_lastExecutionId": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+            "exporter_id": "50714882",
+            "collection_link": "https://go.postman.co/collection/50714882-f8bf8d1b-952a-453d-add7-c358b1a8397c?source=collection_link"
+          },
+          "item": [
+            {
+              "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
+              "name": "CP-11 Consultar Mercado",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "stock",
+                    "all"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET",
+                "auth": {
+                  "type": "noauth",
+                  "noauth": []
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(500);\r",
+                      "});\r",
+                      "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData).to.have.property(\"code\");\r",
+                      "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
+              "name": "CP-36 Transferencia sin Token",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "transfer"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El acceso debe ser denegado (403 o 401)\", function () {\r",
+                      "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
+              "name": "CP-08 Inyección SQL en Búsqueda",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "stock",
+                    "search"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [
+                    {
+                      "key": "query",
+                      "value": "MSFT'; DROP TABLE users;"
+                    }
+                  ],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "e6793553-70f0-4760-815a-ab8ca52fc54d",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El sistema no debe fallar con error interno (No 500)\", function () {\r",
+                      "    // Si escapa bien los caracteres, devolverá 200 (lista vacía) o 400 (Bad Request).\r",
+                      "    // Si devuelve 500, significa que la base de datos colapsó por la inyección.\r",
+                      "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                      "});\r",
+                      "pm.test(\"El tiempo de respuesta debe ser normal (menor a 500ms)\", function () {\r",
+                      "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "2de62962-0909-4457-ab27-33eef340df3f"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "0246d577-b747-4bfe-8db5-adc01441243e",
+              "name": "CP-50 Transferencia Cíclica (A sí mismo)",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "transfer"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"issuerUsername\": \"usuario_admin\",\r\n  \"receptorUsername\": \"usuario_admin\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corporation\",\r\n  \"quantity\": 10,\r\n  \"amount\": 500.00\r\n}"
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "81d7f019-ef02-4b57-a2e1-a9806ad44b13",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"La transacción cíclica es rechazada por el backend\", function () {\r",
+                      "    pm.expect(pm.response.code).to.not.equal(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"El mensaje de error debe ser pertinente\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    // Verifica que el backend arroje un mensaje de error o rechazo\r",
+                      "    pm.expect(jsonData).to.not.be.empty;\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "3d0f1e1c-fbe2-4546-a324-f5393547cdc5"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "fbab7334-1ff8-41cb-a80c-c476465dab03",
+              "name": "CP-49 Doble Clic (Condición de Carrera)",
+              "request": {
+                "url": {
+                  "protocol": "http",
+                  "port": "8080",
+                  "path": [
+                    "api",
+                    "transaction",
+                    "buy"
+                  ],
+                  "host": [
+                    "localhost"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"username\": \"investor01\",\r\n  \"ticker\": \"MSFT\",\r\n  \"name\": \"Microsoft Corp\",\r\n  \"quantity\": 10,\r\n  \"amount\": 3500.0\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "f515d382-db86-4953-8ce5-6624d2c3dd1a",
+                    "type": "text/javascript",
+                    "packages": {},
+                    "exec": [
+                      "pm.test(\"El endpoint responde y aísla la petición (No colapsa la BD)\", function () {\r",
+                      "    pm.expect(pm.response.code).to.not.equal(500);\r",
+                      "});"
+                    ],
+                    "_lastExecutionId": "e5b8cfb1-a439-4950-9707-22c0f096ff9d"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "f8bf8d1b-952a-453d-add7-c358b1a8397c",
+            "name": "Stock Simulator - Integración",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 5,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "0b5781a7-d39c-49c1-b1a3-79b5dd205b58",
+          "httpRequestId": "80f77214-15ac-4538-a9dd-50b5393380e9",
+          "scriptId": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
+          "execution": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
+        }
+      },
+      {
+        "error": {
+          "name": "AssertionError",
+          "index": 0,
           "test": "El acceso debe ser denegado (403 o 401)",
           "message": "expected 400 to be one of [ 401, 403 ]",
           "stack": "AssertionError: expected 400 to be one of [ 401, 403 ]\n   at Object.eval sandbox-script.js:1:2)",
           "checksum": "4e60325bf2d9a6f324efd55f1c3e3626",
-          "id": "33ab76cd-9b29-4acc-b3af-e97d6909f435",
-          "timestamp": 1784474527559,
+          "id": "f624d6e5-1948-409a-9f3d-125b76a705ec",
+          "timestamp": 1784592285984,
           "stacktrace": [
             {
               "fileName": "sandbox-script.js",
@@ -1850,7 +2195,7 @@
         },
         "at": "assertion:0 in test-script",
         "source": {
-          "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+          "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
           "name": "CP-36 Transferencia sin Token",
           "request": {
             "url": {
@@ -1883,7 +2228,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                "id": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
@@ -1891,7 +2236,7 @@
                   "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
                   "});"
                 ],
-                "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+                "_lastExecutionId": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
               }
             }
           ]
@@ -1904,7 +2249,7 @@
           },
           "item": [
             {
-              "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+              "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
               "name": "CP-11 Consultar Mercado",
               "request": {
                 "url": {
@@ -1932,12 +2277,12 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+                    "id": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
+                      "    pm.response.to.have.status(500);\r",
                       "});\r",
                       "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
                       "    var jsonData = pm.response.json();\r",
@@ -1945,13 +2290,13 @@
                       "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
                       "});"
                     ],
-                    "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+                    "_lastExecutionId": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
                   }
                 }
               ]
             },
             {
-              "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+              "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
               "name": "CP-36 Transferencia sin Token",
               "request": {
                 "url": {
@@ -1984,7 +2329,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                    "id": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -1992,13 +2337,13 @@
                       "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
                       "});"
                     ],
-                    "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+                    "_lastExecutionId": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
                   }
                 }
               ]
             },
             {
-              "id": "b997993a-e958-4d79-801c-72495f068ea2",
+              "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
               "name": "CP-08 Inyección SQL en Búsqueda",
               "request": {
                 "url": {
@@ -2027,7 +2372,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                    "id": "e6793553-70f0-4760-815a-ab8ca52fc54d",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2040,13 +2385,13 @@
                       "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
                       "});"
                     ],
-                    "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+                    "_lastExecutionId": "2de62962-0909-4457-ab27-33eef340df3f"
                   }
                 }
               ]
             },
             {
-              "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+              "id": "0246d577-b747-4bfe-8db5-adc01441243e",
               "name": "CP-50 Transferencia Cíclica (A sí mismo)",
               "request": {
                 "url": {
@@ -2074,7 +2419,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+                    "id": "81d7f019-ef02-4b57-a2e1-a9806ad44b13",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2088,13 +2433,13 @@
                       "    pm.expect(jsonData).to.not.be.empty;\r",
                       "});"
                     ],
-                    "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+                    "_lastExecutionId": "3d0f1e1c-fbe2-4546-a324-f5393547cdc5"
                   }
                 }
               ]
             },
             {
-              "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+              "id": "fbab7334-1ff8-41cb-a80c-c476465dab03",
               "name": "CP-49 Doble Clic (Condición de Carrera)",
               "request": {
                 "url": {
@@ -2127,7 +2472,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "cf101856-4307-4042-980f-9bacab95afee",
+                    "id": "f515d382-db86-4953-8ce5-6624d2c3dd1a",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2135,7 +2480,7 @@
                       "    pm.expect(pm.response.code).to.not.equal(500);\r",
                       "});"
                     ],
-                    "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+                    "_lastExecutionId": "e5b8cfb1-a439-4950-9707-22c0f096ff9d"
                   }
                 }
               ]
@@ -2150,14 +2495,14 @@
           }
         },
         "cursor": {
-          "ref": "1ba7eabe-9b37-4dfb-bf27-34605dcf16f4",
+          "ref": "0ddb282d-5c59-4772-9901-3cf6c936643c",
           "length": 5,
           "cycles": 1,
           "position": 1,
           "iteration": 0,
-          "httpRequestId": "d9f69a04-9032-4558-a930-093b4bea7a15",
-          "scriptId": "96a887b7-97da-49af-a802-338f6aba4836",
-          "execution": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+          "httpRequestId": "6ee1f6a1-0916-420f-a91f-a4e8d18164ee",
+          "scriptId": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
+          "execution": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
         }
       },
       {
@@ -2165,11 +2510,11 @@
           "name": "AssertionError",
           "index": 1,
           "test": "El tiempo de respuesta debe ser normal (menor a 500ms)",
-          "message": "expected 928 to be below 500",
-          "stack": "AssertionError: expected 928 to be below 500\n   at Object.eval sandbox-script.js:2:3)",
-          "checksum": "a096f718fa96ae3f1eef705ee3930ede",
-          "id": "930021d9-43bf-48af-98de-ff355f225cb3",
-          "timestamp": 1784474528507,
+          "message": "expected 826 to be below 500",
+          "stack": "AssertionError: expected 826 to be below 500\n   at Object.eval sandbox-script.js:2:3)",
+          "checksum": "503789a139d4ec00b19f1e72ef5a1d05",
+          "id": "9a8de0e5-d231-4292-8691-1d842ed725f8",
+          "timestamp": 1784592286829,
           "stacktrace": [
             {
               "fileName": "sandbox-script.js",
@@ -2184,7 +2529,7 @@
         },
         "at": "assertion:1 in test-script",
         "source": {
-          "id": "b997993a-e958-4d79-801c-72495f068ea2",
+          "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
           "name": "CP-08 Inyección SQL en Búsqueda",
           "request": {
             "url": {
@@ -2213,7 +2558,7 @@
             {
               "listen": "test",
               "script": {
-                "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                "id": "e6793553-70f0-4760-815a-ab8ca52fc54d",
                 "type": "text/javascript",
                 "packages": {},
                 "exec": [
@@ -2226,7 +2571,7 @@
                   "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
                   "});"
                 ],
-                "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+                "_lastExecutionId": "2de62962-0909-4457-ab27-33eef340df3f"
               }
             }
           ]
@@ -2239,7 +2584,7 @@
           },
           "item": [
             {
-              "id": "892ec3b6-7d52-488c-aec2-d1e025896fee",
+              "id": "f84662d9-6c07-4daf-8ed4-d84431576c4f",
               "name": "CP-11 Consultar Mercado",
               "request": {
                 "url": {
@@ -2267,12 +2612,12 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "52807a77-7fef-4dfc-88b0-d2fcad516849",
+                    "id": "0f1754ef-74ec-489e-bf9f-4f87a260ab46",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
                       "pm.test(\"Status code is 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
+                      "    pm.response.to.have.status(500);\r",
                       "});\r",
                       "pm.test(\"La respuesta usa la estructura StockListResponseDTO (Es un json valido)\", function () {\r",
                       "    var jsonData = pm.response.json();\r",
@@ -2280,13 +2625,13 @@
                       "    pm.expect(jsonData).to.have.property(\"stockDTOList\");\r",
                       "});"
                     ],
-                    "_lastExecutionId": "300721c4-5dbd-4bc2-b842-b91f82a595e3"
+                    "_lastExecutionId": "05ce6a6e-d798-456e-9d05-ccba2ae38b07"
                   }
                 }
               ]
             },
             {
-              "id": "48c39faa-e02e-4013-b5c2-6ae712674f03",
+              "id": "d169dcb7-054c-42a2-85b6-14e5e400575c",
               "name": "CP-36 Transferencia sin Token",
               "request": {
                 "url": {
@@ -2319,7 +2664,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "96a887b7-97da-49af-a802-338f6aba4836",
+                    "id": "c5502df6-59f5-4fe4-9842-07ef9d3b676e",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2327,13 +2672,13 @@
                       "    pm.expect(pm.response.code).to.be.oneOf([401, 403]);\r",
                       "});"
                     ],
-                    "_lastExecutionId": "9339cbfc-cb89-4c59-9477-2c359c96e001"
+                    "_lastExecutionId": "9ee697eb-671b-4bb1-a863-a450d1dc0e23"
                   }
                 }
               ]
             },
             {
-              "id": "b997993a-e958-4d79-801c-72495f068ea2",
+              "id": "28b4e526-7f33-481d-ae8e-4edaef875731",
               "name": "CP-08 Inyección SQL en Búsqueda",
               "request": {
                 "url": {
@@ -2362,7 +2707,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "a3efac9e-101c-44c4-9003-743e484ae7ab",
+                    "id": "e6793553-70f0-4760-815a-ab8ca52fc54d",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2375,13 +2720,13 @@
                       "    pm.expect(pm.response.responseTime).to.be.below(500);\r",
                       "});"
                     ],
-                    "_lastExecutionId": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+                    "_lastExecutionId": "2de62962-0909-4457-ab27-33eef340df3f"
                   }
                 }
               ]
             },
             {
-              "id": "9aefc3a1-3980-4a6d-9567-4441350b54e3",
+              "id": "0246d577-b747-4bfe-8db5-adc01441243e",
               "name": "CP-50 Transferencia Cíclica (A sí mismo)",
               "request": {
                 "url": {
@@ -2409,7 +2754,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "bc4d50d8-3120-4da6-83f5-40ba48358d92",
+                    "id": "81d7f019-ef02-4b57-a2e1-a9806ad44b13",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2423,13 +2768,13 @@
                       "    pm.expect(jsonData).to.not.be.empty;\r",
                       "});"
                     ],
-                    "_lastExecutionId": "7ca72346-6efb-457f-a162-a572704709dd"
+                    "_lastExecutionId": "3d0f1e1c-fbe2-4546-a324-f5393547cdc5"
                   }
                 }
               ]
             },
             {
-              "id": "4d6c2256-7fe9-4b26-9d55-c03cb2b012b1",
+              "id": "fbab7334-1ff8-41cb-a80c-c476465dab03",
               "name": "CP-49 Doble Clic (Condición de Carrera)",
               "request": {
                 "url": {
@@ -2462,7 +2807,7 @@
                 {
                   "listen": "test",
                   "script": {
-                    "id": "cf101856-4307-4042-980f-9bacab95afee",
+                    "id": "f515d382-db86-4953-8ce5-6624d2c3dd1a",
                     "type": "text/javascript",
                     "packages": {},
                     "exec": [
@@ -2470,7 +2815,7 @@
                       "    pm.expect(pm.response.code).to.not.equal(500);\r",
                       "});"
                     ],
-                    "_lastExecutionId": "c5d06bd9-496c-4a6f-80b5-946bf3a48baa"
+                    "_lastExecutionId": "e5b8cfb1-a439-4950-9707-22c0f096ff9d"
                   }
                 }
               ]
@@ -2485,14 +2830,14 @@
           }
         },
         "cursor": {
-          "ref": "1e8278f6-a3bf-4a05-b722-dafdc8cd36a2",
+          "ref": "39f29b83-b3a4-4a02-bd60-3f26b9e8de15",
           "length": 5,
           "cycles": 1,
           "position": 2,
           "iteration": 0,
-          "httpRequestId": "52f45d1e-b2cc-46ba-91aa-2bf68cb3aec4",
-          "scriptId": "a3efac9e-101c-44c4-9003-743e484ae7ab",
-          "execution": "8e9c7312-9ea7-4718-b150-b424e49abd39"
+          "httpRequestId": "6eade56d-a425-40ad-9c66-084fcdf085ac",
+          "scriptId": "e6793553-70f0-4760-815a-ab8ca52fc54d",
+          "execution": "2de62962-0909-4457-ab27-33eef340df3f"
         }
       }
     ],
